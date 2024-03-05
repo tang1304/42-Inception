@@ -16,3 +16,4 @@ RUN mkdir -p /etc/nginx/ssl && apt install OpenSSL -y
 #    UID is the user ID
 RUN openssl req -x509 -newkey rsa:2048 -nodes -out /etc/nginx/ssl/inception.crt \
 -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=RA/L=Lyon/O=42/CN=tgellon.42.fr/UID=tgellon"
+
