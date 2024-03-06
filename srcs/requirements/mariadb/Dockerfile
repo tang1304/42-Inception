@@ -1,0 +1,19 @@
+FROM debian:bullseye
+
+ARG DATABASE
+ARG DB_USER
+ARG DB_PASSWORD
+
+# Check for packages updates & install mariadb
+RUN apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server -y
+
+# Launch and create database
+# FLUSH is a refresh to update with the changes done before
+RUN service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS ${DATABASE}; \
+		CREATE USER IF NOT EXISTS ${DB_USER}@localhost IDENTIFIED BY ${DB_PASSWORD}; \
+		GRANT ALL PRIVILEGES ON ${DATABASE}.* to ${DB_USER}@localhost IDENTIFIED BY ${DB_PASSWORD}; \
+		FLUSH PRIVILEGES;"
+
+COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+
+CMD ["mariadbd", "--bind-address=0.0.0.0"]
