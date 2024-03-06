@@ -4,7 +4,7 @@ FROM debian:bullseye
 RUN apt-get update -y && apt-get upgrade -y && apt-get install nginx -y
 
 # Install Openssl for network security (Secure Socket Layer)
-RUN mkdir -p /etc/nginx/ssl && apt-get install OpenSSL -y
+RUN mkdir -p /etc/nginx/ssl && apt-get install openssl -y
 
 # Generate an ssl certificate (actually it will be TLS protocol - Transport Layer Security)
 # - req -x509 : Generate an x509 certificate (self-signed certificate)
