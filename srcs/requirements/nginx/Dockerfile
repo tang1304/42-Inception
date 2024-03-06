@@ -4,7 +4,7 @@ FROM debian:bullseye
 RUN apt-get update -y && apt-get upgrade -y && apt-get install nginx -y
 
 # Install Openssl for network security (Secure Socket Layer)
-RUN mkdir -p /etc/nginx/ssl && apt install OpenSSL -y
+RUN mkdir -p /etc/nginx/ssl && apt-get install OpenSSL -y
 
 # Generate an ssl certificate (actually it will be TLS protocol - Transport Layer Security)
 # - req -x509 : Generate an x509 certificate (self-signed certificate)
@@ -14,8 +14,9 @@ RUN mkdir -p /etc/nginx/ssl && apt install OpenSSL -y
 # - -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=login.42.fr/UID=login" : to fill informations for the certificate
 #    C is country, ST is the State, L is Locality, O is organization/company, CN is the common name for the domain name
 #    UID is the user ID
-RUN openssl req -x509 -newkey rsa:2048 -nodes -out /etc/nginx/ssl/inception.crt \
--keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=RA/L=Lyon/O=42/CN=tgellon.42.fr/UID=tgellon"
+RUN openssl req -x509 -newkey rsa:2048 -nodes -out /etc/nginx/ssl/tgellon.crt \
+-keyout /etc/nginx/ssl/tgellon.key -subj "/C=FR/ST=RA/L=Lyon/O=42/CN=tgellon.42.fr/UID=tgellon"
 
+COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
