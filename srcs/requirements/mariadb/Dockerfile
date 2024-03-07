@@ -15,10 +15,10 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server -y
 
 # Launch and create database
 # FLUSH is a refresh to update with the changes done before
-RUN service mariadb start && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABASE};"
-RUN mariadb -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-RUN mariadb -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* to '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-RUN mariadb -e "FLUSH PRIVILEGES;"
+RUN service mariadb start && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABASE};" \
+&& mariadb -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';" \
+&& mariadb -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* to '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';" \
+&& mariadb -e "FLUSH PRIVILEGES;"
 
 COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 
