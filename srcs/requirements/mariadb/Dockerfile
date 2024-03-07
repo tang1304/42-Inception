@@ -21,6 +21,6 @@ RUN service mariadb start && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABAS
 && mariadb -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* to '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';" \
 && mariadb -e "FLUSH PRIVILEGES;"
 
-COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+#COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-CMD ["mysqld_safe", "--bind-address=0.0.0.0"]
+CMD ["mariadbd", "--bind-address=0.0.0.0"]
