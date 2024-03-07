@@ -3,6 +3,7 @@ FROM debian:bullseye
 ARG DATABASE
 ARG DB_USER
 ARG DB_PASSWORD
+ARG DB_ROOT_PASSWORD
 
 # Just for tests, in .env later
 ENV DATABASE=mariadb
@@ -22,4 +23,4 @@ RUN service mariadb start && mariadb -e "CREATE DATABASE IF NOT EXISTS ${DATABAS
 
 COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-CMD ["mariadbd", "--bind-address=0.0.0.0"]
+CMD ["mysqld_safe", "--bind-address=0.0.0.0"]
