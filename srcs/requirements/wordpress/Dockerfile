@@ -6,6 +6,22 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install wget -y
 # php-fpm is for fastCGI implementation, php-mysql for sql management, mariadb-client to connect to the db
 RUN apt-get install -y php php-fpm php-mysql mariadb-client
 
+# Install the wp-cli to manage wordpress installations
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
+# Give exec rights and move binary
 RUN chmod +x wp-cli.phar && sudo mv wp-cli.phar /usr/local/bin/wp
+
+# Create folder for wordpress (same as in Nginx)
+RUN mkdir -p /var/www/html/wordpress
+
+# Wordpress download through wp-cli
+RUN wp core download --path=/var/www/html/
+
+# Copy our php config file to replace the one created on install (added listen on port 9000)
+COPY ./conf/wp.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+# Give exec rights and copy script to binaries
+RUN chmod +x ./conf/wp_config.sh && sudo mv ./conf/wp_config.sh ./usr/local/bin/wp_config.sh
+
+CMD ["wp_config.sh"]
