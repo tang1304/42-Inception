@@ -26,7 +26,7 @@ then
 
 	# Second user creation
 	wp user create --allow-root \
-		$WP_USER $WP_MAIL --user_password=$WP_USER_PASS
+		$WP_USER $WP_MAIL --user_pass=$WP_USER_PASS
 fi
 
 mkdir -p /run/php

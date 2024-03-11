@@ -1,20 +1,5 @@
 FROM debian:bullseye
 
-# just for tests
-ENV DATABASE=mariadb
-ENV DB_USER=tang
-ENV DB_PASSWORD=GoodPassword?
-ENV DB_ROOT_PASSWORD=Inception42
-ENV DB_HOST=mariadb:3306
-ENV DOMAIN=tgellon.42.fr
-ENV WP_TITLE=Title
-ENV WP_ADMIN=tanguyGellon
-ENV WP_ADMIN_PASS=Inception42
-ENV WP_ADMIN_MAIL=tanguyGellon@42.fr
-ENV WP_USER=bob
-ENV WP_MAIL=bob.42.fr
-ENV WP_USER_PASS=bobpass
-
 # Check for packages updates & install wget
 RUN apt-get update -y && apt-get upgrade -y && apt-get install wget -y
 
