@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  mariadb:
+    container_name: mariadb
+    networks:
+      - inception
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      - mariadb: /var/lib/mysql
+    restart: unless-stopped #restart until stopped
+    expose:
+      - "3306"
+
+  nginx:
+    container_name: nginx
+    networks:
+      - inception
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      -nginx: /var/www/html/wordpress
+    depends_on:
+      - wordpress # start if wordpress is launched
+    ports:
+      - "443:443"
+    restart: on-failure #restart if crash
+
+  wordpress:
+    container_name: wordpress
+    networks:
+      - inception
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      -wordpress: /var/www/html/wordpress
+    depends_on:
+      - mariadb # start if mariadb is launched
+    expose:
+      - "9000"
+    restart: on-failure
+
+volumes:
+  mariadb: 
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/tgellon/data/mariadb'
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/tgellon/data/wordpress'
+
+networks:
+  inception:
+  driver: bridge
