@@ -10,7 +10,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     volumes:
-      - mariadb: /var/lib/mysql
+      - mariadb:/var/lib/mysql
     restart: unless-stopped #restart until stopped
     expose:
       - "3306"
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     volumes:
-      -nginx: /var/www/html/wordpress
+      - wordpress:/var/www/html/wordpress
     depends_on:
       - wordpress # start if wordpress is launched
     ports:
@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     volumes:
-      -wordpress: /var/www/html/wordpress
+      - wordpress:/var/www/html/wordpress
     depends_on:
       - mariadb # start if mariadb is launched
     expose:
@@ -63,4 +63,4 @@ volumes:
 
 networks:
   inception:
-  driver: bridge
+    driver: bridge # to allow communication between the containers
