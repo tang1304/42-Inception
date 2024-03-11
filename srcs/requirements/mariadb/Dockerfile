@@ -5,12 +5,6 @@ ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_ROOT_PASSWORD
 
-# Just for tests, in .env later
-ENV DATABASE=mariadb
-ENV DB_USER=tang
-ENV DB_PASSWORD=GoodPassword?
-ENV DB_ROOT_PASSWORD=Inception42
-
 # Check for packages updates & install mariadb
 RUN apt-get update -y && apt-get upgrade -y && apt-get install mariadb-server -y
 
