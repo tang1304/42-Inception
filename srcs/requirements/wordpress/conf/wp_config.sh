@@ -5,15 +5,18 @@ sleep 15
 if [ ! -f /var/www/wordpress/wp-config.php ]
 then
 	cd  /var/www/html/wordpress/
-	
+
+	# Wordpress download
 	wp core download --allow-root
 
+	# Config database
 	wp config create --allow-root \
 		--dbname=$DATABASE \
 		--dbuser=$DB_USER \
 		--dbpass=$DB_PASSWORD \
 		--dbhost=$DB_HOST
 
+	# Wordpress install with admin infos
 	wp core install --allow-root \
 		--url=$DOMAIN \
 		--title=$WP_TITLE \
@@ -21,6 +24,7 @@ then
 		--admin_password=$WP_ADMIN_PASS \
 		--admin_email=$WP_ADMIN_MAIL
 
+	# Second user creation
 	wp user create --allow-root \
 		$WP_USER $WP_MAIL --user_password=$WP_USER_PASS
 fi
