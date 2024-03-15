@@ -10,7 +10,6 @@ then
 	wp core download --allow-root
 
 	# Config database
-	echo "Configuring Wordpress database..."
 	wp config create --allow-root \
 		--dbname=$DATABASE \
 		--dbuser=$DB_USER \
@@ -18,7 +17,6 @@ then
 		--dbhost=$DB_HOST
 
 	# Wordpress install with admin infos
-	echo "Installing wordpress..."
 	wp core install --allow-root \
 		--url=$DOMAIN \
 		--title=$WP_TITLE \
@@ -26,11 +24,14 @@ then
 		--admin_password=$WP_ADMIN_PASS \
 		--admin_email=$WP_ADMIN_MAIL
 
+	# Wordpress theme installation
+	wp theme install /inspiro.zip --allow-root --activate
+
 	# Second user creation
 	echo "Creating second user..."
 	wp user create --allow-root \
 		$WP_USER $WP_MAIL --user_pass=$WP_USER_PASS
 fi
 
-mkdir -p /run/php
+mkdir -p /run/php #dans dockerfile
 php-fpm7.4 -F
