@@ -25,7 +25,7 @@ then
 		--admin_email=$WP_ADMIN_MAIL
 
 	# Wordpress theme installation
-	wp theme install /inspiro.zip --allow-root --activate
+	wp theme install /vertice.zip --allow-root --activate
 
 	# Second user creation
 	echo "Creating second user..."
@@ -33,5 +33,4 @@ then
 		$WP_USER $WP_MAIL --user_pass=$WP_USER_PASS
 fi
 
-mkdir -p /run/php #dans dockerfile
 php-fpm7.4 -F

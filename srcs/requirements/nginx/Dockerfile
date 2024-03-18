@@ -18,6 +18,7 @@ RUN openssl req -x509 -newkey rsa:2048 -nodes -out /etc/nginx/ssl/tgellon.crt \
 -keyout /etc/nginx/ssl/tgellon.key -subj "/C=FR/ST=RA/L=Lyon/O=42/CN=tgellon.42.fr/UID=tgellon"
 
 COPY conf/nginx.conf /etc/nginx/sites-available/tgellon.42.fr.conf
+
 RUN echo "include /etc/nginx/sites-available/tgellon.42.fr.conf;" > /etc/nginx/sites-enabled/tgellon.42.fr.conf
 
 EXPOSE 443
