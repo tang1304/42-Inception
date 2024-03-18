@@ -1,4 +1,4 @@
-.PHONY: all up down clean
+.PHONY: all up down clean re
 
 include srcs/.env
 
@@ -17,4 +17,9 @@ clean: down
 	- docker rmi -f $$(docker images -qa);
 	- docker volume rm $$(docker volume ls -q);
 	- docker network rm $$(docker network ls -q) 2>/dev/null
-	- sudo rm -rf /home/tgellon/data/mariadb /home/tgellon/data/wordpress
+
+fclean: clean
+	sudo rm -rf /home/tgellon/data/mariadb /home/tgellon/data/wordpress
+
+re: clean
+	${MAKE} up
