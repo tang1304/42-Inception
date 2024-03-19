@@ -16,7 +16,7 @@ services:
     env_file: .env
     volumes:
       - mariadb:/var/lib/mysql
-    restart: unless-stopped #restart until stopped
+    restart: on-failure #restart if crash
     expose:
       - "3306"
 
@@ -34,7 +34,7 @@ services:
       - wordpress # start if wordpress is launched
     ports:
       - "443:443"
-    restart: on-failure #restart if crash
+    restart: on-failure
 
   wordpress:
     container_name: wordpress
@@ -66,7 +66,7 @@ services:
     restart: on-failure
 
 volumes:
-  mariadb: 
+  mariadb:
     driver: local
     driver_opts:
       type: 'none'

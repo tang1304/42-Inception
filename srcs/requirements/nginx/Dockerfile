@@ -21,6 +21,4 @@ COPY conf/nginx.conf /etc/nginx/sites-available/tgellon.42.fr.conf
 
 RUN echo "include /etc/nginx/sites-available/tgellon.42.fr.conf;" > /etc/nginx/sites-enabled/tgellon.42.fr.conf
 
-EXPOSE 443
-
 CMD ["nginx", "-g", "daemon off;"]
