@@ -18,12 +18,12 @@ RUN mkdir -p /var/www/html/wordpress
 # Copy our php config file to replace the one created on install (added listen on port 9000)
 COPY ./conf/wp.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-# Install a theme
-COPY ./conf/vertice.zip /vertice.zip
-
 # Copy script to binaries
 COPY ./conf/wp_config.sh /usr/local/bin/wp_config.sh
 
+# Giving rightx to exec on script
+RUN chmod +x /usr/local/bin/wp_config.sh
+
 RUN mkdir -p /run/php
 
-CMD ["sh", "/usr/local/bin/wp_config.sh"]
+CMD ["wp_config.sh"]

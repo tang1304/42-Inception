@@ -21,5 +21,5 @@ clean: down
 fclean: clean
 	sudo rm -rf /home/tgellon/data/mariadb /home/tgellon/data/wordpress
 
-re: clean
+re: fclean
 	${MAKE} up

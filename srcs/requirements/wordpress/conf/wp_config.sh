@@ -24,8 +24,6 @@ then
 		--admin_password=$WP_ADMIN_PASS \
 		--admin_email=$WP_ADMIN_MAIL
 
-	# Wordpress theme installation
-	wp theme install /vertice.zip --allow-root --activate
 
 	# Second user creation
 	echo "Creating second user..."
